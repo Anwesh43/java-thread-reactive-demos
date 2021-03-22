@@ -92,5 +92,7 @@ public class Main {
         }).start();
         cd.await();
         System.out.println("ended program");
+        FlowDemo fd = new FlowDemo();
+        fd.demo();
     }
 }
