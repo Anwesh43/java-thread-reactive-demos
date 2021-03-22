@@ -37,24 +37,60 @@ public class Main {
 
             }
         };
+//        new Thread(() -> {
+//            consumer.accept("Hello 1");
+//        }).start();
+//
+//        new Thread(() -> {
+//            consumer.accept("Hello 2");
+//        }).start();
+//
+//        new Thread(() -> {
+//            consumer.accept("Hello 3");
+//        }).start();
+//
+//        new Thread(() -> {
+//            consumer.accept("Hello 4");
+//        }).start();
+//
+//        new Thread(() -> {
+//            consumer.accept("Hello 5");
+//        }).start();
+//
+        final CountDownLatchClone cd = new CountDownLatchClone(6);
+        Consumer<String> consumer1 = (String message) -> {
+            try {
+                Thread.sleep(3000);
+                System.out.println(message);
+                cd.decrement();
+            } catch (Exception ex) {
+
+            }
+        };
         new Thread(() -> {
-            consumer.accept("Hello 1");
+            consumer1.accept("A1");
         }).start();
 
         new Thread(() -> {
-            consumer.accept("Hello 2");
+            consumer1.accept("A2");
         }).start();
 
         new Thread(() -> {
-            consumer.accept("Hello 3");
+            consumer1.accept("A3");
         }).start();
 
         new Thread(() -> {
-            consumer.accept("Hello 4");
+            consumer1.accept("A4");
         }).start();
 
         new Thread(() -> {
-            consumer.accept("Hello 5");
+            consumer1.accept("A5");
         }).start();
+
+        new Thread(() -> {
+            consumer1.accept("A6");
+        }).start();
+        cd.await();
+        System.out.println("ended program");
     }
 }
